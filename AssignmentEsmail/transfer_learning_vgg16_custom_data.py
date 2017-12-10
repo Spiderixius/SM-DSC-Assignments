@@ -151,7 +151,7 @@ custom_vgg_model2.compile(loss='categorical_crossentropy',optimizer='adadelta',m
 
 t=time.time()
 #	t = now()
-hist = custom_vgg_model2.fit(X_train, y_train, batch_size=4, epochs=1, verbose=1, validation_data=(X_test, y_test))
+hist = custom_vgg_model2.fit(X_train, y_train, batch_size=4, epochs=20, verbose=1, validation_data=(X_test, y_test))
 print('Training time: %s' % (t - time.time()))
 (loss, accuracy) = custom_vgg_model2.evaluate(X_test, y_test, batch_size=10, verbose=1)
 
@@ -160,9 +160,9 @@ print("[INFO] loss={:.4f}, accuracy: {:.4f}%".format(loss,accuracy * 100))
 #custom_vgg_model2.save_weights("model12epoch.h5")
 
 #Predicting on w.e image
-img_path2 = 'outlier.png'
-
-img_path2 = 'manet.png'
+#img_path2 = 'outlier.png'
+#img_path2 = 'degas2.jpg'
+#img_path2 = 'manet.png'
 
 #img_path2 = 'degas.png'
 #
@@ -179,8 +179,10 @@ print('Predicted:', preds1)
 index = np.argmax(preds1)
 label = names[index]
 print("Predicted:", label)
-#custom_vgg_model2.summary()
-#custom_vgg_model2.layers[-3].get_config()
+
+
+custom_vgg_model2.summary()
+custom_vgg_model2.layers[-1].get_config()
 #%%
 import matplotlib.pyplot as plt
 # visualizing losses and accuracy
