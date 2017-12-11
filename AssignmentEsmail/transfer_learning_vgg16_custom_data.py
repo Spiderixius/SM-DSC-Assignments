@@ -88,9 +88,13 @@ names = ['renoir', 'manet', 'degas', 'monet']
 Y = np_utils.to_categorical(labels, num_classes)
 
 #Shuffle the dataset
-x,y = shuffle(img_data,Y, random_state=2)
+x,y = shuffle(img_data,Y, random_state=None)
+
+x = img_data
+y = Y
+
 # Split the dataset
-X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=2)
+X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=None)
 
 
 #########################################################################################
@@ -139,8 +143,14 @@ x = Dense(128, activation='relu', name='fc1')(x)
 x = Dense(128, activation='relu', name='fc2')(x)
 out = Dense(num_classes, activation='softmax', name='output')(x)
 custom_vgg_model2 = Model(image_input, out)
+
+
+# Load existing model
+custom_vgg_model2.load_weights("20_Epochs_128_Neurons_VGG16_TL_model.h5")
 custom_vgg_model2.summary()
 
+
+# If above model not available, start training one.
 # freeze all the layers except the dense layers
 for layer in custom_vgg_model2.layers[:-3]:
 	layer.trainable = False
@@ -157,16 +167,14 @@ print('Training time: %s' % (t - time.time()))
 
 print("[INFO] loss={:.4f}, accuracy: {:.4f}%".format(loss,accuracy * 100))
 
-#custom_vgg_model2.save_weights("model12epoch.h5")
-
 #Predicting on w.e image
-#img_path2 = 'outlier.png'
-#img_path2 = 'degas2.jpg'
-#img_path2 = 'manet.png'
+img_path2 = 'outlier.png'
+img_path2 = 'degas2.jpg'
+img_path2 = 'manet.png'
 
-#img_path2 = 'degas.png'
+img_path2 = 'degas.png'
 #
-#img_path2 = 'renoir.png'
+img_path2 = 'renoir.png'
 
 img2 = image.load_img(img_path2, target_size=(224, 224))
 x1 = image.img_to_array(img2)
@@ -180,9 +188,12 @@ index = np.argmax(preds1)
 label = names[index]
 print("Predicted:", label)
 
+# Save the model
+#custom_vgg_model2.save_weights("model.h5")
+
 
 custom_vgg_model2.summary()
-custom_vgg_model2.layers[-1].get_config()
+custom_vgg_model2.layers[-3].get_config()
 #%%
 import matplotlib.pyplot as plt
 # visualizing losses and accuracy
