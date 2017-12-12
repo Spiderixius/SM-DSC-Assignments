@@ -129,8 +129,8 @@ X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_
 
 
 ####################################################################################################################
-
-#Training the feature extraction also
+# Custom_vgg_model2
+#Transfer learning
 
 image_input = Input(shape=(224, 224, 3))
 
