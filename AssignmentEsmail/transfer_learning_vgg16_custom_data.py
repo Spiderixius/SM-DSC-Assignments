@@ -22,24 +22,6 @@ from keras import backend as K
 from sklearn.utils import shuffle
 from sklearn.cross_validation import train_test_split
 
-#img_path = 'elephant.jpg'
-#img = image.load_img(img_path, target_size=(224, 224))
-#x = image.img_to_array(img)
-#print (x.shape)
-#x = np.expand_dims(x, axis=0)
-#print (x.shape)
-#x = preprocess_input(x)
-#print('Input image shape:', x.shape)
-
-#img_path = 'cat.jpg'
-#img = image.load_img(img_path, target_size=(224, 224))
-#x = image.img_to_array(img)
-#print (x.shape)
-#x = np.expand_dims(x, axis=0)
-#print (x.shape)
-#x = preprocess_input(x)
-#print('Input image shape:', x.shape)
-
 # Loading the training data
 PATH = os.getcwd()
 # Define data path
@@ -97,41 +79,7 @@ y = Y
 # Split the dataset
 X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=None)
 
-
-#########################################################################################
-# Custom_vgg_model_1
-#Training the classifier alone
-#image_input = Input(shape=(224, 224, 3))
-#
-#model = VGG16(input_tensor=image_input, include_top=True, weights='imagenet')
-#model.summary()
-#last_layer = model.get_layer('fc2').output
-##x= Flatten(name='flatten')(last_layer)
-#out = Dense(num_classes, activation='softmax', name='output')(last_layer)
-#custom_vgg_model = Model(image_input, out)
-#custom_vgg_model.summary()
-#
-#for layer in custom_vgg_model.layers[:-1]:
-#	layer.trainable = False
-#
-#custom_vgg_model.layers[3].trainable
-#
-#custom_vgg_model.compile(loss='categorical_crossentropy',optimizer='rmsprop',metrics=['accuracy'])
-#
-#
-#t=time.time()
-##	t = now()
-#hist = custom_vgg_model.fit(X_train, y_train, batch_size=4, epochs=1, verbose=1, validation_data=(X_test, y_test))
-#print('Training time: %s' % (t - time.time()))
-#(loss, accuracy) = custom_vgg_model.evaluate(X_test, y_test, batch_size=10, verbose=1)
-#
-#print("[INFO] loss={:.4f}, accuracy: {:.4f}%".format(loss,accuracy * 100))
-
-
-####################################################################################################################
-# Custom_vgg_model2
 #Transfer learning
-
 image_input = Input(shape=(224, 224, 3))
 
 model = VGG16(input_tensor=image_input, include_top=True,weights='imagenet')
